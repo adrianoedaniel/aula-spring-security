@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Equipes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Lista de Equipes</h1>
+        
+        <!-- Formulário para adicionar nova equipe -->
+        <form th:action="@{/equipe/}" th:object="${newEquipe}" method="post" class="mb-4">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" id="nome" th:field="*{nome}" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="cidade" class="form-label">Cidade</label>
+                <input type="text" id="cidade" th:field="*{cidade}" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar Equipe</button>
+        </form>
+        
+        <!-- Tabela de equipes -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Cidade</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="equipe : ${equipes}">
+                    <td th:text="${equipe.id}">1</td>
+                    <td th:text="${equipe.nome}">Nome da Equipe</td>
+                    <td th:text="${equipe.cidade}">Cidade da Equipe</td>
+                    <td>
+                        <a th:href="@{/equipe/edit/{id}(id=${equipe.id})}" class="btn btn-warning btn-sm">Editar</a>
+                        <a th:href="@{/equipe/delete/{id}(id=${equipe.id})}" class="btn btn-danger btn-sm">Excluir</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
